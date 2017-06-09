@@ -186,6 +186,7 @@ int main()
                     sockTcp.set_timeout(10000);
                     printf("Connecting socket to %s on port %d...\n", tcpServer.get_ip_address(), tcpServer.get_port());
                     if (sockTcp.connect(tcpServer) == 0) {
+                        pulseEvent();
                         printf("Connected, sending HTTP GET request to \"developer.mbed.org\" over socket...\n");
                         strcpy (buf, "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\r\n\r\n");
                         // Note: since this is a short string we can send it in one go as it will
@@ -221,7 +222,7 @@ int main()
             printf("Stopped.\n");
         } else {
             bad();
-            printf("Unable to get IP address of \"mbed.org\".\n");
+            printf("Unable to get IP address of \"developer.mbed.org\" or \"2.pool.ntp.org\".\n");
         }
     } else {
         bad();
