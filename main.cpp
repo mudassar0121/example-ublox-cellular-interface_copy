@@ -128,8 +128,9 @@ int main()
     printf("Starting up, please wait up to 180 seconds for network registration to complete...\n");
     if (interface->init(PIN)) {
         pulseEvent();
+        interface->set_credentials(APN, USERNAME, PASSWORD);
         printf("Registered, connecting to the packet network...\n");
-        for (x = 0; interface->connect(PIN, APN, USERNAME, PASSWORD) != 0; x++) {
+        for (x = 0; interface->connect() != 0; x++) {
             if (x > 0) {
                 bad();
                 printf("Retrying (have you checked that an antenna is plugged in and your APN is correct?)...\n");
@@ -211,7 +212,7 @@ int main()
                     printf("Socket closed.\n");
                 }
                 wait_ms(5000);
-                printf("[Checking user button]\n");
+                printf("[Checking if user button has been pressed]\n");
             }
             
             pulseEvent();
