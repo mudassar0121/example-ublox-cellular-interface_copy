@@ -112,6 +112,11 @@ static void cbButton()
 int main()
 {
     UbloxATCellularInterface *interface = new UbloxATCellularInterface();
+// If you need to debug the cellular interface, comment out the
+// instantiation above and uncomment the one below.
+//    UbloxATCellularInterface *interface = new UbloxATCellularInterface(MDMTXD, MDMRXD,
+//                                                                       MBED_CONF_UBLOX_CELL_BAUD_RATE,
+//                                                                       true);
     TCPSocket sockTcp;
     UDPSocket sockUdp;
     SocketAddress udpServer;
@@ -119,7 +124,12 @@ int main()
     SocketAddress tcpServer;
     char buf[1024];
     int x;
+#ifdef TARGET_UBLOX_C027
+    // No user button on C027
+    InterruptIn userButton(NC);
+#else
     InterruptIn userButton(SW0);
+#endif
     
     // Attach a function to the user button
     userButton.rise(&cbButton);
@@ -147,7 +157,7 @@ int main()
             printf("\"2.pool.ntp.org\" address: %s on port %d.\n", udpServer.get_ip_address(), udpServer.get_port());
             printf("\"developer.mbed.org\" address: %s on port %d.\n", tcpServer.get_ip_address(), tcpServer.get_port());
             
-            printf("Performing socket operations in a loop until the user button is pressed...\n");
+            printf("Performing socket operations in a loop (until the user button is pressed on C030 or forever on C027)...\n");
             while (!buttonPressed) {
                 // UDP Sockets
                 printf("=== UDP ===\n");
