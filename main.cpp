@@ -112,8 +112,8 @@ static void cbButton()
 int main()
 {
     UbloxATCellularInterface *interface = new UbloxATCellularInterface();
-// If you need to debug the cellular interface, comment out the
-// instantiation above and uncomment the one below.
+    // If you need to debug the cellular interface, comment out the
+    // instantiation above and uncomment the one below.
 //    UbloxATCellularInterface *interface = new UbloxATCellularInterface(MDMTXD, MDMRXD,
 //                                                                       MBED_CONF_UBLOX_CELL_BAUD_RATE,
 //                                                                       true);
