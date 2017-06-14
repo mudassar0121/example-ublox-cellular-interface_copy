@@ -16,6 +16,16 @@
 
 #include "mbed.h"
 #include "UbloxATCellularInterface.h"
+#include "UbloxPPPCellularInterface.h"
+
+// If you wish to use LWIP and the PPP cellular interface, select
+// the line UbloxPPPCellularInterface, otherwise select the line
+// UbloxATCellularInterface.  Using the AT cellular interface does not
+// require LWIP and hence uses less RAM (significant on C027.  It also
+// allows other AT command operations (e.g. sending an SMS) to happen
+// during a data transfer.
+#define INTERFACE_CLASS  UbloxATCellularInterface
+//#define INTERFACE_CLASS  UbloxPPPCellularInterface
 
 // The credentials of the SIM in the board.  If PIN checking is enabled
 // for your SIM card you must set this to the required PIN.
@@ -111,12 +121,12 @@ static void cbButton()
 
 int main()
 {
-    UbloxATCellularInterface *interface = new UbloxATCellularInterface();
+    INTERFACE_CLASS *interface = new UbloxATCellularInterface();
     // If you need to debug the cellular interface, comment out the
     // instantiation above and uncomment the one below.
-//    UbloxATCellularInterface *interface = new UbloxATCellularInterface(MDMTXD, MDMRXD,
-//                                                                       MBED_CONF_UBLOX_CELL_BAUD_RATE,
-//                                                                       true);
+//    INTERFACE_CLASS *interface = new INTERFACE_CLASS(MDMTXD, MDMRXD,
+//                                                     MBED_CONF_UBLOX_CELL_BAUD_RATE,
+//                                                     true);
     TCPSocket sockTcp;
     UDPSocket sockUdp;
     SocketAddress udpServer;
