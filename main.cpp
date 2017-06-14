@@ -21,7 +21,7 @@
 // If you wish to use LWIP and the PPP cellular interface, select
 // the line UbloxPPPCellularInterface, otherwise select the line
 // UbloxATCellularInterface.  Using the AT cellular interface does not
-// require LWIP and hence uses less RAM (significant on C027.  It also
+// require LWIP and hence uses less RAM (significant on C027).  It also
 // allows other AT command operations (e.g. sending an SMS) to happen
 // during a data transfer.
 #define INTERFACE_CLASS  UbloxATCellularInterface
@@ -121,7 +121,7 @@ static void cbButton()
 
 int main()
 {
-    INTERFACE_CLASS *interface = new UbloxATCellularInterface();
+    INTERFACE_CLASS *interface = new INTERFACE_CLASS();
     // If you need to debug the cellular interface, comment out the
     // instantiation above and uncomment the one below.
 //    INTERFACE_CLASS *interface = new INTERFACE_CLASS(MDMTXD, MDMRXD,
