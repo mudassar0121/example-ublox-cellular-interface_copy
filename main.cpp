@@ -18,8 +18,8 @@
 #include "UbloxATCellularInterface.h"
 #include "UbloxPPPCellularInterface.h"
 
-// If you wish to use LWIP and the PPP cellular interface, select
-// the line UbloxPPPCellularInterface, otherwise select the line
+// If you wish to use LWIP and the PPP cellular interface on the mbed
+// MCU, select the line UbloxPPPCellularInterface instead of the line
 // UbloxATCellularInterface.  Using the AT cellular interface does not
 // require LWIP and hence uses less RAM (significant on C027).  It also
 // allows other AT command operations (e.g. sending an SMS) to happen
@@ -109,10 +109,11 @@ static void cbButton()
 }
 
 /* This example program for the u-blox C030 and C027 boards instantiates
- * the UbloxAtCellularInterface and uses it to make a simple sockets
- * connection to a server, using 2.pool.ntp.org for UDP and developer.mbed.org
- * for TCP.  For a more comprehensive example, where higher layer protocols
- * make use of the same sockets interface, see example-ublox-mbed-client.
+ * the UbloxAtCellularInterface or UbloxPPPCellularInterface and uses it
+ *  to make a simple sockets connection to a server, using 2.pool.ntp.org
+ * for UDP and developer.mbed.org for TCP.  For a more comprehensive example,
+ * where higher layer protocols make use of the same sockets interface,
+ * see example-ublox-mbed-client.
  * Progress may be monitored with a serial terminal running at 9600 baud.
  * The LED on the C030 board will turn green when this program is
  * operating correctly, pulse blue when a sockets operation is completed
@@ -232,7 +233,9 @@ int main()
                     printf("Socket closed.\n");
                 }
                 wait_ms(5000);
+#ifndef TARGET_UBLOX_C027
                 printf("[Checking if user button has been pressed]\n");
+#endif
             }
             
             pulseEvent();
