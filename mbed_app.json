@@ -1,0 +1,9 @@
+{
+    "target_overrides": {
+        "*": {
+            "lwip.ppp-enabled": true,
+            "platform.stdio-convert-newlines": true
+        }
+    }
+}
+
